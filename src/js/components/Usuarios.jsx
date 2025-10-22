@@ -12,6 +12,7 @@ const Usuarios = () => {
 const [listUsuario,setListUsuario]= useState([]);
 const [showModal, setShowModal]= useState(false);
 const [value, setValue]= useState('');
+const [valueBusqueda,setValueBusqueda] = useState('')
     //getUser('alex');
     // createUser('milagros');
     //getListUser();
@@ -19,7 +20,7 @@ const [value, setValue]= useState('');
 const handleListUser = async()=>{
     try {
         const result = await getListUser();
-        console.log(result);
+        console.log(typeof(result),result);
         setListUsuario(result)
         
     } catch (error) {
@@ -75,14 +76,48 @@ const handleChange=(event) =>{
 const handleCloseModal = () =>{
     setShowModal(false);setValue('')
 }
+const handleSearch = (e) =>{
+    setValueBusqueda(e.target.value.toLowerCase());
+}
+const handleSubmit = async(e)=>{
+	e.preventDefault();
+    console.log(typeof(valueBusqueda),valueBusqueda.length,valueBusqueda);
+    console.log(!valueBusqueda);
+    
+    try {
+        const dato = await getListUser();
+        console.log(typeof(dato),dato);
+        if(valueBusqueda.length===0){
+            setListUsuario(dato)
+        } else{
+           const result = dato.filter(element=>element.name.toLowerCase()===valueBusqueda);
+           setListUsuario(result)
+        }
+        
+    } catch (error) {
+        console.log(error);
+        
+    }
+	
+}
+
+
+
+
 
     return (
         <div className="col-lg-6">
             
-
             <h1 className="text-center mt-5">Lista de Usuarios</h1>
-            <button type="button" className="btn btn-primary" onClick={handleOpenModal}>Agregar Usuario</button>
-            {/* <button type="button" className="btn btn-primary" onClick={setShowModal(true)}>Agregar Usuario</button> */}
+            <form onSubmit={handleSubmit} >
+            {/* <form > */}
+                <div className="row d-flex">
+                <div className="col-8"><input type="text" style={{width:"100%"}} onChange={handleSearch} placeholder="Buscar..."/></div>
+                    <div className="col-4"><button type="button" className="btn btn-primary" onClick={handleOpenModal}>Agregar Usuario</button></div>
+                {/* <button type="button" className="btn btn-primary" onClick={setShowModal(true)}>Agregar Usuario</button> */}
+                
+                </div>
+            </form>
                 <ModalComponent show={showModal} closeModal= {handleCloseModal} handleChange={handleChange} valueUser={value} addUser={agregarUsuario}/>
             <table className="table">
                 <thead>
