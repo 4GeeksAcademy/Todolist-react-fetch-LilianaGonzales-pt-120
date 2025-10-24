@@ -5,6 +5,9 @@ export const getUser = async(user)=>{
     try {
         const request = await fetch(`https://playground.4geeks.com/todo/users/${user}`)
         const response = await request.json();
+        console.log(response);
+        
+        return response
     } catch (error) {
         console.log(error);
     }

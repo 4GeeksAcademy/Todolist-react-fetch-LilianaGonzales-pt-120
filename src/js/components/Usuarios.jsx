@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { createUser, deleteUser, getListUser, getUser } from "../services/usuario";
 import { useEffect } from "react";
 import ModalComponent from "./ModalComponent";
+import ModalTareas from "./ModalTareas";
 
 //include images into your bundle
 
@@ -12,7 +13,10 @@ const Usuarios = () => {
 const [listUsuario,setListUsuario]= useState([]);
 const [showModal, setShowModal]= useState(false);
 const [value, setValue]= useState('');
-const [valueBusqueda,setValueBusqueda] = useState('')
+const [valueBusqueda,setValueBusqueda] = useState('');
+const [listaTareas,SetListaTareas] = useState([]);
+const [showTareas, setShowTareas ] = useState(false);
+const [user, setUser] = useState('');
     //getUser('alex');
     // createUser('milagros');
     //getListUser();
@@ -67,6 +71,10 @@ const handleOpenModal=() =>{
     console.log(showModal);
     
 }
+const handleOpenModalTareas=(id) =>{
+    setUser(id);
+    setShowTareas(true); 
+}
 const handleChange=(event) =>{
     console.log("hola");
     setValue(event.target.value)
@@ -75,6 +83,9 @@ const handleChange=(event) =>{
 }
 const handleCloseModal = () =>{
     setShowModal(false);setValue('')
+}
+const handleCloseModalTareas = () =>{
+    setShowTareas(false)
 }
 const handleSearch = (e) =>{
     setValueBusqueda(e.target.value.toLowerCase());
@@ -133,13 +144,18 @@ const handleSubmit = async(e)=>{
                             <tr key={index} >
                                 <td>{index+1}</td>
                                 <td>{data.name}</td>
-                                <td className="delete" onClick={()=>eliminarUsuario(data.name)}><i className="fa-solid fa-trash"></i></td>
+                                {/* <td className="delete" onClick={()=>eliminarUsuario(data.name)}><i className="fa-solid fa-trash"></i></td> */}
+                                <td><div>
+                                    <i className="fa-solid fa-trash" onClick={()=>eliminarUsuario(data.name)} title="Eliminar"></i>
+                                    <i className="fa-solid fa-list-check" onClick = {()=>handleOpenModalTareas(data.name)} title="Ver Tarea"></i>
+                                    </div> 
+                                </td>
                             </tr>
                         ))
                     }
                 </tbody>
             </table>
-           
+           <ModalTareas show = {showTareas} closeModal = {handleCloseModalTareas} name={user} />
         </div>
     );
 };
