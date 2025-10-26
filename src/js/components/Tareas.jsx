@@ -149,9 +149,9 @@ const Tareas = (name) =>{
 
         <div> 
             <form>
-            <div>
-                <div><input placeholder="Buscar ..."/></div>
-                <div><button type="button" className="btn btn-primary" onClick={handleOpenModal}>agregar</button></div>
+            <div className="row d-flex">
+                <div className="col-8"><input className="input-tarea" placeholder="Buscar ..."/></div>
+                <div className="col-4"><button type="button" className="btn btn-primary" onClick={handleOpenModal}>agregar</button></div>
                 {/* <ModalComponent show={showModal} 
                                 closeModal= {handleCloseModal} 
                                 handleChange={handleChange} 
@@ -163,7 +163,7 @@ const Tareas = (name) =>{
                 <ModalComponent show={(!id)?showModal:showModalEditar} 
                                 closeModal= {(!id)?handleCloseModal: handleCloseModalEditar}
                                 title={(!id)?titleAdd: titleEdit}
-                                titleInput={(!id)?"Ingresar Nuevo Tarea":""}
+                                titleInput={(!id)?"Ingresar Nueva Tarea":""}
                                 handleChange={handleChange}
                                 valueInput={value}
                                 addUser={(!id)?agregarTarea:editarTarea}

@@ -6,7 +6,7 @@ import rigoImage from "../../img/rigo-baby.jpg";
 //create your first component
 const InputComponent = ({valueInput,title,handleChange}) => {
     return (
-        <div>
+        <div className="col-10">
         <input type="text" onChange={handleChange} value={valueInput} placeholder={title}/>
       </div>
     );

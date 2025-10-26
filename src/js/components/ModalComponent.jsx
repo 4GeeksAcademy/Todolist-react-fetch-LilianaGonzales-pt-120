@@ -17,7 +17,7 @@ if(!show) return null;
       <div className="modal-body">
         {/* <input type="text" onChange={handleChange} value={valueInput} placeholder="Ingrese nuevo usuario"/> */}
         <InputComponent handleChange={handleChange} valueInput={valueInput} title={titleInput}/>
-        {(id)?<div>
+        {(id)?<div className="col-4">
           {/* <label for="pendiente">pendiente</label><input type="radio" id="pendiente" />
           <label for="terminado">terminado</label><input type="radio" id="terminado" /> */}
           <label>
