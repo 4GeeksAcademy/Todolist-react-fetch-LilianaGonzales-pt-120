@@ -14,9 +14,10 @@ const [listUsuario,setListUsuario]= useState([]);
 const [showModal, setShowModal]= useState(false);
 const [value, setValue]= useState('');
 const [valueBusqueda,setValueBusqueda] = useState('');
-const [listaTareas,SetListaTareas] = useState([]);
+// const [listaTareas,SetListaTareas] = useState([]);
 const [showTareas, setShowTareas ] = useState(false);
 const [user, setUser] = useState('');
+const title = "Agregar Usuario";
     //getUser('alex');
     // createUser('milagros');
     //getListUser();
@@ -56,8 +57,8 @@ const agregarUsuario = async (e) =>{
         const result = await createUser(value);
         console.log(result);
         
-        // setListUsuario((prevList)=>{ return [...prevList,result]});
-        handleListUser();
+        //setListUsuario((prevList)=>{ return [...prevList,result]});
+       handleListUser();
         setValue('')
     } catch (error) {
         console.log(error);
@@ -129,7 +130,8 @@ const handleSubmit = async(e)=>{
                 
                 </div>
             </form>
-                <ModalComponent show={showModal} closeModal= {handleCloseModal} handleChange={handleChange} valueUser={value} addUser={agregarUsuario}/>
+                <ModalComponent show={showModal} closeModal= {handleCloseModal} handleChange={handleChange} 
+                valueInput={value} addUser={agregarUsuario} title={title} titleInput="Ingresar Nuevo Usuario"/>
             <table className="table">
                 <thead>
                     <tr>
@@ -146,7 +148,7 @@ const handleSubmit = async(e)=>{
                                 <td>{data.name}</td>
                                 {/* <td className="delete" onClick={()=>eliminarUsuario(data.name)}><i className="fa-solid fa-trash"></i></td> */}
                                 <td><div>
-                                    <i className="fa-solid fa-trash" onClick={()=>eliminarUsuario(data.name)} title="Eliminar"></i>
+                                    <i className="fa-sharp fa-solid fa-user-slash" onClick={()=>eliminarUsuario(data.name)} title="Eliminar"></i>
                                     <i className="fa-solid fa-list-check" onClick = {()=>handleOpenModalTareas(data.name)} title="Ver Tarea"></i>
                                     </div> 
                                 </td>

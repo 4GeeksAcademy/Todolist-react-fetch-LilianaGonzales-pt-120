@@ -1,8 +1,21 @@
 import { useEffect, useState } from "react";
 import { getUser } from "../services/usuario";
+import ModalComponent from "./ModalComponent";
+import { createTask, deleteTask, EditTask } from "../services/tarea";
 
 const Tareas = (name) =>{
     const [listTareas,setListTareas] = useState([]);
+    const [showModal, setShowModal] = useState(false);
+    const [showModalEditar, setShowModalEditar] = useState(false);
+    const [value,setValue] = useState('');
+    const [id,setId] = useState('');
+    const [stateTarea, setStateTarea] = useState(false);
+    const [stateEstadoTarea, setStateEstadOTarea] = useState('');
+    //const [tarea,setTarea] = useState('');
+
+    const titleAdd = "Agregar Tarea";
+    const titleEdit = "Modificar Tarea";
+
     const handleListTareas = async()=>{
         try {
             const result = await getUser(name.name);
@@ -20,13 +33,138 @@ const Tareas = (name) =>{
      console.log(name.name);
      
     },[]);
+
+    const handleOpenModal=() =>{
+    console.log("hola");
+    setShowModal(true)
+    console.log(showModal); 
+    setId('') 
+    }
+    const handleOpenModalEditar = (data) =>{
+        console.log(data);
+        console.log(data.id);
+        setId(data.id)
+        setStateTarea(data.is_done);
+        setShowModalEditar(true);
+        setValue(data.label);
+        setStateEstadOTarea(data.is_done)
+    }
+
+    const handleCloseModal = () =>{
+    setShowModal(false);setValue('')
+    }
+    const handleCloseModalEditar = () =>{
+    setShowModalEditar(false);setValue('')
+    }
+    const handleChange=(event) =>{
+        console.log(value);
+        
+    console.log("hola Tarea");
+    setValue(event.target.value)
+    console.log(showModal);
+    }
+    const handleChangeRadio=(event) =>{
+        console.log(event.target.value);
+        console.log(stateEstadoTarea);
+        
+        setStateEstadOTarea(event.target.value)
+    
+    }
+    const agregarTarea = async(e) =>{
+        console.log('agregar tarea');
+        console.log(id.length);
+        
+        e.preventDefault();
+            setShowModal(false);
+            const body = {
+                label:value,
+                is_done:false,
+            }
+            try {
+                const result = await createTask(name.name,body);
+                console.log(result);
+                
+                setListTareas((prevList)=>{ return [...prevList,result]});
+                //handleListTareas;
+                setValue('');
+            } catch (error) {
+                console.log(error);
+                
+            }
+    }
+    const eliminarTarea = async (id) => {
+        console.log(id);
+        try {
+            const result = await deleteTask(id);
+            console.log(result);
+            
+            //setListTareas((prevList)=>{ return [...prevList]});
+            
+            console.log(listTareas);
+            
+            handleListTareas();
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    const editarTarea = async (e) =>{
+        console.log('editar');
+        console.log(value);
+        console.log(stateTarea);
+        
+        e.preventDefault();
+            setShowModalEditar(false);
+            const body = {
+                label:value,
+                is_done:stateTarea,
+            }
+            try {
+                await EditTask(id,body);
+                //console.log(result);
+                try {
+                    const actualizado = await getUser(name.name)
+                    console.log(actualizado.todos);
+                    
+                    setListTareas(actualizado.todos)
+                } catch (error) {
+                    
+                }
+                //setListTareas((prevList)=>{ return [...prevList]});
+                handleListTareas;
+                setValue('');
+            } catch (error) {
+                console.log(error);
+                
+            }
+    }
+    
+
     return (
 
         <div> 
             <form>
             <div>
-                <div><input placeholder="agregar tareas"/></div>
-                <div><button type="button" className="btn btn-primary">agregar</button></div>
+                <div><input placeholder="Buscar ..."/></div>
+                <div><button type="button" className="btn btn-primary" onClick={handleOpenModal}>agregar</button></div>
+                {/* <ModalComponent show={showModal} 
+                                closeModal= {handleCloseModal} 
+                                handleChange={handleChange} 
+                                valueInput={value}
+                                addUser={agregarTarea} 
+                                title={titleAdd} 
+                                titleInput="Ingresar Nuevo Tarea"/> */}
+
+                <ModalComponent show={(!id)?showModal:showModalEditar} 
+                                closeModal= {(!id)?handleCloseModal: handleCloseModalEditar}
+                                title={(!id)?titleAdd: titleEdit}
+                                titleInput={(!id)?"Ingresar Nuevo Tarea":""}
+                                handleChange={handleChange}
+                                valueInput={value}
+                                addUser={(!id)?agregarTarea:editarTarea}
+                                id={id}
+                                handleChangeRadio={handleChangeRadio}
+                                stateEstadoTarea={stateEstadoTarea}
+                                />
                 
             </div>
             
@@ -36,6 +174,7 @@ const Tareas = (name) =>{
                     <tr>
                         <th >Item</th>
                         <th >Nombre de Tarea</th>
+                        <th >Estado</th>
                         <th ></th>
                     </tr>
                 </thead>
@@ -45,12 +184,15 @@ const Tareas = (name) =>{
                             <tr key={index} >
                                 <td>{index+1}</td>
                                 <td>{data.label}</td>
-                                {/* <td>
+                                <td><p>pendiente</p></td>
+                                <td>
                                     <div>
-                                    <i className="fa-solid fa-trash" onClick={()=>eliminarUsuario(data.name)} title="Eliminar"></i>
-                                    <i className="fa-solid fa-list-check" onClick = {handleOpenModalTareas} title="Ver Tarea"></i>
+                                    <i className="fa-solid fa-trash img" onClick={()=>eliminarTarea(data.id)} title="Eliminar"></i>
+                                    <i className="fa-solid fa-pen-to-square" title="Editar" onClick={()=>handleOpenModalEditar(data)}></i>
+                                    {/* <i className="fa-solid fa-list-check" onClick = {handleOpenModalTareas} title="Ver Tarea"></i> */}
+                                    {/* <input type="checkbox"/> */}
                                     </div> 
-                                </td> */}
+                                </td>
                             </tr>
                         ))
                     }

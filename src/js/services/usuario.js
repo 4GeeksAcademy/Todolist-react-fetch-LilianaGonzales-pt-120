@@ -47,7 +47,7 @@ export const getListUser = async()=>{
                 "accept": "application/json"
             }
         });
-        //const response = await request.json();
+        const response = await request.json();
         //console.log(request);
     } catch (error) {
         console.log(error);
