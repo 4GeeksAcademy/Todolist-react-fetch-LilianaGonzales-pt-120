@@ -43,7 +43,7 @@ if(!show) return null;
       </div>
       <div className="modal-footer">
         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal"onClick={closeModal}>cerrar</button>
-        <button type="submit" className="btn btn-primary" onClick={addUser}>Agregar</button>
+        <button type="submit" className="btn btn-primary" onClick={addUser}>{(id)?'Editar':'Agregar'}</button>
       </div>
     </div>
   </div>

@@ -11,7 +11,6 @@ const Tareas = (name) =>{
     const [id,setId] = useState('');
     const [stateTarea, setStateTarea] = useState(false);
     const [stateEstadoTarea, setStateEstadOTarea] = useState('');
-    //const [tarea,setTarea] = useState('');
 
     const titleAdd = "Agregar Tarea";
     const titleEdit = "Modificar Tarea";
@@ -44,10 +43,16 @@ const Tareas = (name) =>{
         console.log(data);
         console.log(data.id);
         setId(data.id)
-        setStateTarea(data.is_done);
+       // setStateTarea(data.is_done);
         setShowModalEditar(true);
         setValue(data.label);
-        setStateEstadOTarea(data.is_done)
+        //setStateEstadOTarea(data.is_done)
+
+        if(data.is_done==false){
+            setStateEstadOTarea('pendiente')
+        }else{
+            setStateEstadOTarea('terminado')
+        }
     }
 
     const handleCloseModal = () =>{
@@ -65,8 +70,8 @@ const Tareas = (name) =>{
     }
     const handleChangeRadio=(event) =>{
         console.log(event.target.value);
-        console.log(stateEstadoTarea);
-        
+        //console.log(stateEstadoTarea);
+        (event.target.value == 'terminado')?setStateTarea(true):setStateTarea(false)
         setStateEstadOTarea(event.target.value)
     
     }
@@ -109,8 +114,7 @@ const Tareas = (name) =>{
     }
     const editarTarea = async (e) =>{
         console.log('editar');
-        console.log(value);
-        console.log(stateTarea);
+        console.log(stateEstadoTarea);
         
         e.preventDefault();
             setShowModalEditar(false);
@@ -118,6 +122,8 @@ const Tareas = (name) =>{
                 label:value,
                 is_done:stateTarea,
             }
+            console.log(body);
+            
             try {
                 await EditTask(id,body);
                 //console.log(result);
@@ -184,7 +190,8 @@ const Tareas = (name) =>{
                             <tr key={index} >
                                 <td>{index+1}</td>
                                 <td>{data.label}</td>
-                                <td><p>pendiente</p></td>
+                                {/* <td><p>pendiente</p></td> */}
+                                <td>{(data.is_done==true)?'Terminado':'Pendiente'}</td>
                                 <td>
                                     <div>
                                     <i className="fa-solid fa-trash img" onClick={()=>eliminarTarea(data.id)} title="Eliminar"></i>

@@ -24,8 +24,8 @@ const ModalTareas = ({show,closeModal,name}) => {
         <Tareas name={name}/>
       </div>
       <div className="modal-footer">
-        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={closeModal}>Close</button>
-        <button type="button" className="btn btn-primary">Save changes</button>
+        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={closeModal}>Cerrar</button>
+        {/* <button type="button" className="btn btn-primary">Save changes</button> */}
       </div>
     </div>
   </div>
