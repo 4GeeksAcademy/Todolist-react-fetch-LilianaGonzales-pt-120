@@ -11,7 +11,7 @@ if(!show) return null;
   <div className="modal-dialog">
     <div className="modal-content">
       <div className="modal-header">
-        <h5 className="modal-title">{title}</h5>
+        <h5 className="modal-title title">{title}</h5>
         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={closeModal}></button>
       </div>
       <div className="modal-body">
@@ -43,7 +43,7 @@ if(!show) return null;
       </div>
       <div className="modal-footer">
         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal"onClick={closeModal}>cerrar</button>
-        <button type="submit" className="btn btn-primary" onClick={addUser}>{(id)?'Editar':'Agregar'}</button>
+        <button type="submit" className="btn btnAgregar" onClick={addUser}>{(id)?'Editar':'Agregar'}</button>
       </div>
     </div>
   </div>

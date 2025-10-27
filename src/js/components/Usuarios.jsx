@@ -118,46 +118,51 @@ const handleSubmit = async(e)=>{
 
 
     return (
-        <div className="col-lg-6">
-            
-            <h1 className="text-center mt-5">Lista de Usuarios</h1>
-            <form onSubmit={handleSubmit} >
-            {/* <form > */}
-                <div className="row d-flex">
-                <div className="col-8"><input type="text" style={{width:"100%"}} onChange={handleSearch} placeholder="Buscar..."/></div>
-                    <div className="col-4"><button type="button" className="btn btn-primary" onClick={handleOpenModal}>Agregar Usuario</button></div>
-                {/* <button type="button" className="btn btn-primary" onClick={setShowModal(true)}>Agregar Usuario</button> */}
-                
-                </div>
-            </form>
-                <ModalComponent show={showModal} closeModal= {handleCloseModal} handleChange={handleChange} 
-                valueInput={value} addUser={agregarUsuario} title={title} titleInput="Ingresar Nuevo Usuario"/>
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th >Item</th>
-                        <th >Nombre de usuario</th>
-                        <th ></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        listUsuario.map((data,index)=>(
-                            <tr key={index} >
-                                <td>{index+1}</td>
-                                <td>{data.name}</td>
-                                {/* <td className="delete" onClick={()=>eliminarUsuario(data.name)}><i className="fa-solid fa-trash"></i></td> */}
-                                <td><div>
-                                    <i className="fa-sharp fa-solid fa-user-slash" onClick={()=>eliminarUsuario(data.name)} title="Eliminar"></i>
-                                    <i className="fa-solid fa-list-check" onClick = {()=>handleOpenModalTareas(data.name)} title="Ver Tarea"></i>
-                                    </div> 
-                                </td>
+        <div className="container-fluid">
+            <div className="row justify-content-center">
+                <div className="col-lg-6 fondo">
+                    
+                    <h1 className="text-center mt-5 title">Lista de Usuarios</h1>
+                    <form onSubmit={handleSubmit} >
+                    {/* <form > */}
+                        <div className="row d-flex">
+                        <div className="col-8"><input type="text" style={{width:"100%",height:"38px",borderRadius:"8px",borderColor:"#c6c7c8",paddingLeft:"10px"}} onChange={handleSearch} placeholder="Buscar..."/></div>
+                            <div className="col-4"><button type="submit" className="btn btnAgregar" onClick={handleSubmit}>Buscar <i class="fa-solid fa-magnifying-glass"></i></button></div>
+                        {/* <button type="button" className="btn btn-primary" onClick={setShowModal(true)}>Agregar Usuario</button> */}
+                        
+                        </div>
+                    </form>
+                        <ModalComponent show={showModal} closeModal= {handleCloseModal} handleChange={handleChange} 
+                        valueInput={value} addUser={agregarUsuario} title={title} titleInput="Ingresar Nuevo Usuario"/>
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th >Item</th>
+                                <th >Nombre de usuario</th>
+                                <th >Acciones</th>
                             </tr>
-                        ))
-                    }
-                </tbody>
-            </table>
-           <ModalTareas show = {showTareas} closeModal = {handleCloseModalTareas} name={user} />
+                        </thead>
+                        <tbody>
+                            {
+                                listUsuario.map((data,index)=>(
+                                    <tr key={index} >
+                                        <td>{index+1}</td>
+                                        <td>{data.name}</td>
+                                        {/* <td className="delete" onClick={()=>eliminarUsuario(data.name)}><i className="fa-solid fa-trash"></i></td> */}
+                                        <td><div>
+                                            <i className="fa-sharp fa-solid fa-user-slash user" onClick={()=>eliminarUsuario(data.name)} title="Eliminar Usuario"></i>
+                                            <i className="fa-solid fa-list-check task" onClick = {()=>handleOpenModalTareas(data.name)} title="Ver Tarea"></i>
+                                            </div> 
+                                        </td>
+                                    </tr>
+                                ))
+                            }
+                        </tbody>
+                    </table>
+                <ModalTareas show = {showTareas} closeModal = {handleCloseModalTareas} name={user} />
+                <div><button type="button" className="btn btnAgregar btnInferior" onClick={handleOpenModal}>Agregar <i className="fa-sharp fa-solid fa-user" ></i></button></div>
+                </div>
+            </div>
         </div>
     );
 };

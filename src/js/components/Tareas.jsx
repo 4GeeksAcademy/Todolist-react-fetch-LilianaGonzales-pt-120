@@ -150,8 +150,8 @@ const Tareas = (name) =>{
         <div> 
             <form>
             <div className="row d-flex">
-                <div className="col-8"><input className="input-tarea" placeholder="Buscar ..."/></div>
-                <div className="col-4"><button type="button" className="btn btn-primary" onClick={handleOpenModal}>agregar</button></div>
+                <div className="col-8"><input className="input-tarea" style={{width:"100%",height:"38px",borderRadius:"8px",borderColor:"#c6c7c8",paddingLeft:"10px"}} placeholder="Buscar ..."/></div>
+                <div className="col-4"><button type="button" className="btn btnAgregar" onClick={handleOpenModal}>Agregar</button></div>
                 {/* <ModalComponent show={showModal} 
                                 closeModal= {handleCloseModal} 
                                 handleChange={handleChange} 
@@ -181,12 +181,13 @@ const Tareas = (name) =>{
                         <th >Item</th>
                         <th >Nombre de Tarea</th>
                         <th >Estado</th>
-                        <th ></th>
+                        <th >Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {
+                    { 
                         listTareas.map((data,index)=>(
+                            data.id?
                             <tr key={index} >
                                 <td>{index+1}</td>
                                 <td>{data.label}</td>
@@ -195,12 +196,12 @@ const Tareas = (name) =>{
                                 <td>
                                     <div>
                                     <i className="fa-solid fa-trash img" onClick={()=>eliminarTarea(data.id)} title="Eliminar"></i>
-                                    <i className="fa-solid fa-pen-to-square" title="Editar" onClick={()=>handleOpenModalEditar(data)}></i>
+                                    <i className="fa-solid fa-pen-to-square editar" title="Editar" onClick={()=>handleOpenModalEditar(data)}></i>
                                     {/* <i className="fa-solid fa-list-check" onClick = {handleOpenModalTareas} title="Ver Tarea"></i> */}
                                     {/* <input type="checkbox"/> */}
                                     </div> 
                                 </td>
-                            </tr>
+                            </tr>: <p className="mensaje">No existen tareas</p>
                         ))
                     }
                 </tbody>

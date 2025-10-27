@@ -7,7 +7,7 @@ import rigoImage from "../../img/rigo-baby.jpg";
 const InputComponent = ({valueInput,title,handleChange}) => {
     return (
         <div className="col-10">
-        <input type="text" onChange={handleChange} value={valueInput} placeholder={title}/>
+        <input style={{borderRadius:"8px",borderColor:"#c6c7c8"}} type="text" onChange={handleChange} value={valueInput} placeholder={title}/>
       </div>
     );
 };

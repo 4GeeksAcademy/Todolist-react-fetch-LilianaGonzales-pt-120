@@ -18,3 +18,50 @@
 .input-tarea{
     width: 100%;
 }
+.user{
+    color: red;
+}
+.editar{
+    color: skyblue;
+    margin-left: 20px;
+}
+.tableTareas{
+    text-align: center;
+}
+.img{
+    color: red;
+}
+.task{
+    margin-left: 20px;
+    color: green;
+}
+.mensaje{
+    color: grey;
+}
+.body{
+    margin-top: 60px;
+    
+}
+.table{
+    margin-top: 2%;
+}
+/* .th-user{
+    background-color: red;
+} */
+ /* table:not(.table-user) {
+  color: green;
+} */
+ .title{
+    color: #dc688d;
+ }
+ .fondo{
+    background-color: #ffcac8;
+    margin-top: 5%;
+ }
+ .btnAgregar{
+    background-color: #dc688d !important;
+    color: white;
+ }
+ .btnInferior{
+    margin-bottom: 10px;
+ }
