@@ -15,11 +15,8 @@ if(!show) return null;
         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={closeModal}></button>
       </div>
       <div className="modal-body">
-        {/* <input type="text" onChange={handleChange} value={valueInput} placeholder="Ingrese nuevo usuario"/> */}
         <InputComponent handleChange={handleChange} valueInput={valueInput} title={titleInput}/>
         {(id)?<div className="col-4">
-          {/* <label for="pendiente">pendiente</label><input type="radio" id="pendiente" />
-          <label for="terminado">terminado</label><input type="radio" id="terminado" /> */}
           <label>
           <input 
             type="radio" 

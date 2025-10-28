@@ -9,7 +9,6 @@ export const createTask = async(user,body)=>{
             body:JSON.stringify(body),
         });
         const response = await request.json();
-        console.log(response);
         return response
     } catch (error) {
         console.log(error);
@@ -24,7 +23,6 @@ export const deleteTask = async(id)=>{
             },
         });
         const response = await request.json();
-        console.log(response);
         return response
     } catch (error) {
         console.log(error);
@@ -41,7 +39,6 @@ export const EditTask = async(id,body)=>{
             body:JSON.stringify(body),
         });
         const response = await request.json();
-        console.log(response);
         return response
     } catch (error) {
         console.log(error);
