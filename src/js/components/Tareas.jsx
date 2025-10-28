@@ -11,6 +11,7 @@ const Tareas = (name) =>{
     const [id,setId] = useState('');
     const [stateTarea, setStateTarea] = useState(false);
     const [stateEstadoTarea, setStateEstadOTarea] = useState('');
+    const [valueBusqueda,setValueBusqueda] = useState('');
 
     const titleAdd = "Agregar Tarea";
     const titleEdit = "Modificar Tarea";
@@ -143,22 +144,36 @@ const Tareas = (name) =>{
                 
             }
     }
-    
 
+    const handleSearch = (e) =>{
+    setValueBusqueda(e.target.value.toLowerCase());
+    }
+
+    const handleSubmit = async(e)=>{
+        e.preventDefault(); 
+        try {
+            const dato = await getUser(name.name);
+            console.log(typeof(dato),dato);
+            if(valueBusqueda.length===0){
+                setListTareas(dato.todos)
+            } else{
+            const result = dato.todos.filter(element=>element.label.toLowerCase().includes(valueBusqueda));
+               setListTareas(result)
+            }
+            
+        } catch (error) {
+            console.log(error);
+            
+        }
+    }
     return (
 
         <div> 
-            <form>
+            <form onSubmit={handleSubmit}>
             <div className="row d-flex">
-                <div className="col-8"><input className="input-tarea" style={{width:"100%",height:"38px",borderRadius:"8px",borderColor:"#c6c7c8",paddingLeft:"10px"}} placeholder="Buscar ..."/></div>
-                <div className="col-4"><button type="button" className="btn btnAgregar" onClick={handleOpenModal}>Agregar</button></div>
-                {/* <ModalComponent show={showModal} 
-                                closeModal= {handleCloseModal} 
-                                handleChange={handleChange} 
-                                valueInput={value}
-                                addUser={agregarTarea} 
-                                title={titleAdd} 
-                                titleInput="Ingresar Nuevo Tarea"/> */}
+                <div className="col-8"><input className="input-tarea" onChange={handleSearch} style={{width:"100%",height:"38px",borderRadius:"8px",borderColor:"#c6c7c8",paddingLeft:"10px"}} placeholder="Buscar ..."/></div>
+                {/* <div className="col-4"><button type="button" className="btn btnAgregar" onClick={handleOpenModal}>Agregar</button></div> */}
+                <div className="col-4"><button type="submit" className="btn btnAgregar" onClick={handleSubmit}>Buscar <i class="fa-solid fa-magnifying-glass"></i></button></div>
 
                 <ModalComponent show={(!id)?showModal:showModalEditar} 
                                 closeModal= {(!id)?handleCloseModal: handleCloseModalEditar}
@@ -206,6 +221,8 @@ const Tareas = (name) =>{
                     }
                 </tbody>
             </table>
+            {/* <div className="col-4"><button type="button" className="btn btnAgregar" onClick={handleOpenModal}>Agregar</button></div> */}
+            <div><button type="button" className="btn btnAgregar btnInferior" onClick={handleOpenModal}>Agregar <i className="fa-sharp fa-solid fa-user" ></i></button></div>
         </div>
     );
 }

@@ -45,12 +45,6 @@
 .table{
     margin-top: 2%;
 }
-/* .th-user{
-    background-color: red;
-} */
- /* table:not(.table-user) {
-  color: green;
-} */
  .title{
     color: #dc688d;
  }
@@ -64,4 +58,5 @@
  }
  .btnInferior{
     margin-bottom: 10px;
+    margin-top: 10px;
  }
